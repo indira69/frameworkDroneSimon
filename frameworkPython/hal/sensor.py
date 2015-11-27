@@ -7,12 +7,6 @@ from abc import ABCMeta
 class Sensor(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self):
-
-        self.sensorData = None
-        self.status = None
-        self.driver = None
-
     @abc.abstractmethod
     def getLastInfo(self):
         # devuelve la informacion que tiene sensorData
