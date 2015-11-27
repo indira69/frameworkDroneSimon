@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 frameworkPython/.idea/*
 frameworkPython/.vpprefdata/*
 frameworkPython/tmp/*
 .lock
+=======
+.idea
+.pyc
+>>>>>>> 16363b8ce5da8fc16a826337ddeaa22f27425ede

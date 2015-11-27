@@ -1,6 +1,6 @@
 from drivers.driver import Driver
 from sensor import Sensor
-from sensorData import SensorDataUltrasonido
+from sensorDataUltrasonido import SensorDataUltrasonido
 
 
 class SensorUltrasonido(Sensor):

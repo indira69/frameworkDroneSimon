@@ -1,5 +1,4 @@
-import sensorData
-
+from sensorData import SensorData
 from drivers.driver import Driver
 
 

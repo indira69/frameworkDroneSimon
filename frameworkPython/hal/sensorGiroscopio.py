@@ -1,6 +1,6 @@
 from drivers.driver import Driver
 from sensor import Sensor
-from sensorData import SensorDataGiroscopio
+from sensorDataGiroscopio import SensorDataGiroscopio
 
 
 class SensorGiroscopio(Sensor):

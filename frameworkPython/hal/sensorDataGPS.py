@@ -1,24 +1,24 @@
-from sensorData import SensorData
 from drivers.driver import Driver
+from sensorData import SensorData
 
 
-class SensorDataGiroscopio(SensorData):
+class SensorDataGPS(SensorData):
 
     def __init__(self, driver):
         """
         :type driver Driver
         """
 
-        #data = {'x': 0, 'y': 0, 'z': 0, 'angulo': 0}
+        #data = {'latitud : 0, longitud : 0, altura : 0'}
         self.data = driver.getData()
         self.age = ""
 
     def getData(self):
-        # tiene los datos del sensor
+
         return self.data
 
     def getAge(self):
-        # tiene los datos del sensor
+
         return self.age
 
     def setData(self, data):
