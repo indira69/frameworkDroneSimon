@@ -1,0 +1,4 @@
+frameworkPython/.idea/*
+frameworkPython/.vpprefdata/*
+frameworkPython/tmp/*
+.lock
