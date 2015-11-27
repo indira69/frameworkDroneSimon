@@ -7,7 +7,7 @@ class Actuador (object):
     __metaclass__ = ABCMeta
 
     def __init__(self):
-        # este será un diccionario
+        # este sera un diccionario
         self.actuadorData = None
         self.status = None
         self.driver = None
