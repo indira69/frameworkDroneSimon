@@ -128,3 +128,6 @@ class ActuadorOpenPilot:
             sleep(0.05)
             print i
         self.resetearValores()
+
+    def setData(self):
+        
