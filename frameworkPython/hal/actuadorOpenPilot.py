@@ -1,8 +1,10 @@
+# coding=utf-8
 _autor_ = "Jorge Encinas"
 # modificado por Indira Camacho
 
 from frameworkPython.drivers.driverCanalPWM import CanalPWM
 from time import sleep
+from actuadorDataOpenPilot import ActuadorDataOpenPilot
 
 # que es duty?, vla max val min deverian ser cttes?
 class ActuadorOpenPilot:
@@ -25,6 +27,10 @@ class ActuadorOpenPilot:
         self.canal4 = CanalPWM(self.pwm4, self.freq, self.valMinimo, self.valMaximo, self.defecto)
         self.canal5 = CanalPWM(self.pwm5, self.freq, self.valMinimo, self.valMaximo, self.valMinimo)
         self.canal6 = CanalPWM(self.pwm6, self.freq, self.valMinimo, self.valMaximo, self.valMinimo)
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.data= ActuadorDataOpenPilot(self.diccionarioData)
+
+
 
    #reset : reinicia comunicacion con canales y ajusta valores de canales a su estado inicial
     def reset(self):
@@ -46,7 +52,7 @@ class ActuadorOpenPilot:
         self.setAux2(0)
     """ uso para except KeyboardInterrupt o similares"""
 
-    #stop: detiene todos los impulsos, señales y desconecta el OP
+    #stop: detiene todos los impulsos, seniales y desconecta el OP
     def stop(self):
         self.canal1.interrumpir()
         self.canal2.interrumpir()
@@ -86,26 +92,30 @@ class ActuadorOpenPilot:
     def apagar(self):
         self.setOnOff(0)
 
-    #roll- Aleron inclinacion derecha e izquierda
+    # roll- Aleron inclinacion derecha e izquierda
     def getRoll(self):
         return self.canal1.valor
 
-    #pitch - elevador - cabeceo: inclinacion cabeza arriba/abajo
+    # pitch - elevador - cabeceo: inclinacion cabeza arriba/abajo
     def getPitch(self):
         return self.canal2.valor
 
-    #tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
+    # tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
     def getTortle(self):
         return self.canal3.valor
 
-   #yaw- Timon: giro de cabeza a derecha o izquierda
+   # yaw- Timon: giro de cabeza a derecha o izquierda
     def getYaw(self):
         return self.canal4.valor
 
+    # devuelve estabilizado o acrobatico
     def getModoVuelo(self):
         return self.canal5.valor
 
-    def getAux2(self):
+    # armar y desarmar (encender y apagar)-  armado cuando el motor esta listo para arrancar (acelerar)
+    # desarmado es cuando esta esperando ser armado, no arranca
+    # devuelve 0 o 1 dependiendo 0-apagado 1-prendido
+    def getOnOff(self):
         return self.canal6.valor
 
     def testCanal(self):
@@ -129,5 +139,10 @@ class ActuadorOpenPilot:
             print i
         self.resetearValores()
 
-    def setData(self):
-        
+    #data = {'roll':0,  'pitch':0, 'tortle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no}
+    def setData(self, data):
+        self.data.setData(data)
+
+    def getData(self):
+        return self.data.getData()
+
