@@ -1,11 +1,11 @@
 _autor_ = "Jorge Encinas"
 # modificado por Indira Camacho
 
-from frameworkPython.drivers.CanalPWM import CanalPWM
+from frameworkPython.drivers.driverCanalPWM import CanalPWM
 from time import sleep
 
-# que es duty?, vla max val min deverían ser cttes?
-class ControlRemoto:
+# que es duty?, vla max val min deverian ser cttes?
+class ActuadorOpenPilot:
     """control PWM para 6 canales en Modo 2"""
 
     def __init__(self):
@@ -26,8 +26,8 @@ class ControlRemoto:
         self.canal5 = CanalPWM(self.pwm5, self.freq, self.valMinimo, self.valMaximo, self.valMinimo)
         self.canal6 = CanalPWM(self.pwm6, self.freq, self.valMinimo, self.valMaximo, self.valMinimo)
 
-   #reset
-    def reiniciar(self):
+   #reset : reinicia comunicacion con canales y ajusta valores de canales a su estado inicial
+    def reset(self):
         self.interrumpir()
         self.canal1.inicio()
         self.canal2.inicio()
@@ -36,59 +36,7 @@ class ControlRemoto:
         self.canal5.inicio()
         self.canal6.inicio()
 
-    """ uso para except KeyboardInterrupt o similares"""
-
-    #stop
-    def interrumpir(self):
-        self.canal1.interrumpir()
-        self.canal2.interrumpir()
-        self.canal3.interrumpir()
-        self.canal4.interrumpir()
-        self.canal5.interrumpir()
-        self.canal6.interrumpir()
-
-    #roll
-    def setAleron(self, vel):
-        self.canal1.setDuty(vel)
-
-    #pitch
-    def setElevador(self, vel):
-        self.canal2.setDuty(vel)
-
-    #tortle
-    def setAcelerador(self, vel):
-        self.canal3.setDuty(vel)
-
-    #yaw
-    def setTimon(self, vel):
-        self.canal4.setDuty(vel)
-
-    def setAux1(self, vel):
-        self.canal5.setDuty(vel)
-
-    def setAux2(self, vel):
-        self.canal6.setDuty(vel)
-
-    #roll
-    def getAleron(self):
-        return self.canal1.valor
-
-    #
-    def getElevador(self):
-        return self.canal2.valor
-
-    def getAcelerador(self):
-        return self.canal3.valor
-
-    def getTimon(self):
-        return self.canal4.valor
-
-    def getAux1(self):
-        return self.canal5.valor
-
-    def getAux2(self):
-        return self.canal6.valor
-
+    # solo resetea valores sin reinniciar comunicación
     def resetearValores(self):
         self.setAleron(50)
         self.setElevador(50)
@@ -96,6 +44,69 @@ class ControlRemoto:
         self.setTimon(50)
         self.setAux1(0)
         self.setAux2(0)
+    """ uso para except KeyboardInterrupt o similares"""
+
+    #stop: detiene todos los impulsos, señales y desconecta el OP
+    def stop(self):
+        self.canal1.interrumpir()
+        self.canal2.interrumpir()
+        self.canal3.interrumpir()
+        self.canal4.interrumpir()
+        self.canal5.interrumpir()
+        self.canal6.interrumpir()
+
+    #roll- Aleron: inclinacion derecha e izquierda
+    def setRoll(self, vel):
+        self.canal1.setDuty(vel)
+
+    #pitch - elevador - cabeceo: inclinacion cabeza arriba/abajo
+    def setPitch(self, vel):
+        self.canal2.setDuty(vel)
+
+    #tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
+    def setTortle(self, vel):
+        self.canal3.setDuty(vel)
+
+    #yaw- Timon: giro de cabeza a derecha o izquierda
+    def setYaw(self, vel):
+        self.canal4.setDuty(vel)
+
+    #seleccionar modos de vuelo - estabilizado - acrobático, tiene hasta 6 opciones como: rate (ratios) y otros
+    def setModoVuelo(self, modo):
+        self.canal5.setDuty(modo)
+
+    # armar y desarmar (encender y apagar)-  armado cuando el motor esta listo para arrancar (acelerar)
+    # desarmado es cuando esta esperando ser armado, no arranca
+    def setOnOff(self, onOff):
+        self.canal6.setDuty(onOff)
+
+    def encender(self):
+        self.setOnOff(1)
+
+    def apagar(self):
+        self.setOnOff(0)
+
+    #roll- Aleron inclinacion derecha e izquierda
+    def getRoll(self):
+        return self.canal1.valor
+
+    #pitch - elevador - cabeceo: inclinacion cabeza arriba/abajo
+    def getPitch(self):
+        return self.canal2.valor
+
+    #tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
+    def getTortle(self):
+        return self.canal3.valor
+
+   #yaw- Timon: giro de cabeza a derecha o izquierda
+    def getYaw(self):
+        return self.canal4.valor
+
+    def getModoVuelo(self):
+        return self.canal5.valor
+
+    def getAux2(self):
+        return self.canal6.valor
 
     def testCanal(self):
         for i in range(50, 100):
