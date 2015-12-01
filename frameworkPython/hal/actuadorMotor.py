@@ -13,18 +13,24 @@ class ActuadorMotor(Actuador):
         self.status = driver.getStatus()
         self.driver = driver
 
-    def setData(self):
-
-         raise NotImplementedError( "Should have implemented this" )
+    def setData(self, data):
+         self.actuadorData.setData(data)
 
     def getStatus(self):
-
         return self.status
 
     def encender(self):
-        #inicializa y pone en ON el actuador
-         raise NotImplementedError( "Should have implemented this" )
+        # enciende el actuador ¿ lo hace mediante el driver?
+        raise NotImplementedError( "Should have implemented this" )
 
     def apagar(self):
         # apaga el actuador
          raise NotImplementedError( "Should have implemented this" )
+
+    def acelerar (self, velocidad):
+        # acelera el motor
+        data={'velocidad':velocidad}
+        self.setData (data)
+
+
+
