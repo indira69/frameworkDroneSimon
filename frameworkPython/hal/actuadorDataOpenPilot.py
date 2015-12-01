@@ -1,4 +1,4 @@
-_autor_ = "Indira Camacho"
+_autor_ = "I.C.C."
 
 from actuadorData import ActuadorData
 

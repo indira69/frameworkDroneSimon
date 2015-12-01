@@ -1,6 +1,6 @@
 # coding=utf-8
 _autor_ = "Jorge Encinas"
-# modificado por Indira Camacho
+# modificado por I.C.C.
 
 from frameworkPython.drivers.driverCanalPWM import CanalPWM
 from time import sleep
