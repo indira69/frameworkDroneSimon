@@ -41,6 +41,8 @@ class ActuadorOpenPilot:
         self.canal4.inicio()
         self.canal5.inicio()
         self.canal6.inicio()
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.data.setData(self.diccionarioData)
 
     # solo resetea valores sin reinniciar comunicación
     def resetearValores(self):
@@ -48,9 +50,11 @@ class ActuadorOpenPilot:
         self.setElevador(50)
         self.setAcelerador(0)
         self.setTimon(50)
-        self.setAux1(0)
-        self.setAux2(0)
-    """ uso para except KeyboardInterrupt o similares"""
+        self.setModoVuelo(0)
+        self.setOnOff(0)
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.data.setData(self.diccionarioData)
+    #""" uso para except KeyboardInterrupt o similares"""
 
     #stop: detiene todos los impulsos, seniales y desconecta el OP
     def stop(self):
@@ -60,38 +64,57 @@ class ActuadorOpenPilot:
         self.canal4.interrumpir()
         self.canal5.interrumpir()
         self.canal6.interrumpir()
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'throtle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.data.setData(self.diccionarioData)
 
     #roll- Aleron: inclinacion derecha e izquierda
     def setRoll(self, vel):
         self.canal1.setDuty(vel)
+        self.diccionarioData['roll']=self.getRoll()
+        self.setData(self.diccionarioData)
 
     #pitch - elevador - cabeceo: inclinacion cabeza arriba/abajo
     def setPitch(self, vel):
         self.canal2.setDuty(vel)
+        self.diccionarioData['pitch']=self.getPitch(self)
+        self.setData(self.diccionarioData)
 
     #tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
-    def setTortle(self, vel):
+    def setThrotle(self, vel):
         self.canal3.setDuty(vel)
+        self.diccionarioData['throtle']=self.getThrotle()
+        self.setData(self.diccionarioData)
 
     #yaw- Timon: giro de cabeza a derecha o izquierda
     def setYaw(self, vel):
         self.canal4.setDuty(vel)
+        self.diccionarioData['yaw']=self.getYaw()
+        self.setData(self.diccionarioData)
 
     #seleccionar modos de vuelo - estabilizado - acrobático, tiene hasta 6 opciones como: rate (ratios) y otros
     def setModoVuelo(self, modo):
         self.canal5.setDuty(modo)
+        self.diccionarioData['modoVuelo']=self.getModoVuelo()
+        self.setData(self.diccionarioData)
 
     # armar y desarmar (encender y apagar)-  armado cuando el motor esta listo para arrancar (acelerar)
     # desarmado es cuando esta esperando ser armado, no arranca
     def setOnOff(self, onOff):
         self.canal6.setDuty(onOff)
+        self.diccionarioData['onOff']=self.getOnOff()
+        self.setData(self.diccionarioData)
 
     def encender(self):
         self.setOnOff(1)
+        self.diccionarioData['onOff']=self.getOnOff()
+        self.setData(self.diccionarioData)
 
     def apagar(self):
         self.setOnOff(0)
+        self.diccionarioData['onOff']=self.getOnOff()
+        self.setData(self.diccionarioData)
 
+# a partir de aquí gets
     # roll- Aleron inclinacion derecha e izquierda
     def getRoll(self):
         return self.canal1.valor
@@ -101,7 +124,7 @@ class ActuadorOpenPilot:
         return self.canal2.valor
 
     # tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
-    def getTortle(self):
+    def getThrotle(self):
         return self.canal3.valor
 
    # yaw- Timon: giro de cabeza a derecha o izquierda
@@ -139,7 +162,7 @@ class ActuadorOpenPilot:
             print i
         self.resetearValores()
 
-    #data = {'roll':0,  'pitch':0, 'tortle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no}
+    #data = {'roll':0,  'pitch':0, 'tortle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no(0/1)}
     def setData(self, data):
         self.data.setData(data)
 
