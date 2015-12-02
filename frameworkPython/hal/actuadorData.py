@@ -1,3 +1,5 @@
+_autor_ = "I.C.C"
+
 import abc
 from abc import ABCMeta
 
