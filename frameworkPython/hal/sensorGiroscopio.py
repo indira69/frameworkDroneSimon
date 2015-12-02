@@ -2,6 +2,8 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataGiroscopio import SensorDataGiroscopio
 
+__author__ = 'Diego Garcia'
+
 
 class SensorGiroscopio(Sensor):
 
