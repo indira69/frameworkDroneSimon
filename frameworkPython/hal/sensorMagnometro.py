@@ -3,7 +3,7 @@ from sensor import Sensor
 from sensorDataMagnometro import SensorDataMagnometro
 
 
-class Magnometro(Sensor):
+class SensorMagnometro(Sensor):
 
     def __init__(self, driver):
         """

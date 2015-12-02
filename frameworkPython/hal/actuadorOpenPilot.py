@@ -2,7 +2,7 @@
 _autor_ = "Jorge Encinas"
 # modificado por I.C.C.
 
-from frameworkPython.drivers.driverCanalPWM import CanalPWM
+from drivers.driverCanalPWM import CanalPWM
 from time import sleep
 from actuadorDataOpenPilot import ActuadorDataOpenPilot
 
@@ -169,3 +169,6 @@ class ActuadorOpenPilot:
     def getData(self):
         return self.data.getData()
 
+    def getStatus(self):
+        #habria que poner sensores al actuador para devolver el estado
+         raise NotImplementedError( "Should have implemented this" )

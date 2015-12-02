@@ -2,7 +2,7 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataBateria import SensorDataBateria
 
-class Bateria(Sensor):
+class SensorBateria(Sensor):
 
     def __init__(self, driver):
         self.sensorData = SensorDataBateria(driver)
