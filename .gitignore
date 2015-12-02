@@ -5,5 +5,5 @@ frameworkPython/tmp/*
 .lock
 =======
 .idea
-.pyc
+*.pyc
 >>>>>>> 16363b8ce5da8fc16a826337ddeaa22f27425ede

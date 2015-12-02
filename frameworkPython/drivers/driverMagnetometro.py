@@ -76,9 +76,9 @@ class DriverMagnometro(Driver):
 		raise NotImplementedError( "Should have implemented this" )
 
 	def forceRead(self):
-        # fuerza a hacer una nueva lectura al sensor
+		# fuerza a hacer una nueva lectura al sensor
 		raise NotImplementedError( "Should have implemented this" )
 
 	def reset(self):
-        # inicializa datos sensor
+		# inicializa datos sensor
 		raise NotImplementedError( "Should have implemented this" )
