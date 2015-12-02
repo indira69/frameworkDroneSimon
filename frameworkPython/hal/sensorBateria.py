@@ -3,7 +3,6 @@ from sensor import Sensor
 from sensorDataBateria import SensorDataBateria
 
 #modified by Diego Garcia
-
 class SensorBateria(Sensor):
 
     def __init__(self, driver):
