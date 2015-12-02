@@ -2,11 +2,7 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataBateria import SensorDataBateria
 
-<<<<<<< HEAD
 #modified by Diego Garcia
-
-=======
->>>>>>> 583f7e9fd353d1bf8100cf47c3730aa5c738e858
 class SensorBateria(Sensor):
 
     def __init__(self, driver):
