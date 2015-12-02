@@ -29,7 +29,7 @@ class DriverGiroscopioMock(Driver):
 
         raise NotImplementedError( "Should have implemented this" )
 
-class SensorGPSTest(unittest.TestCase):
+class SensorGiroscopioTest(unittest.TestCase):
 
     def setUp(self):
 

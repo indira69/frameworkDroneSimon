@@ -5,7 +5,7 @@ from sensorDataMagnometro import SensorDataMagnometro
 __author__ = 'Diego Garcia'
 
 
-class Magnometro(Sensor):
+class SensorMagnometro(Sensor):
 
     def __init__(self, driver):
         """

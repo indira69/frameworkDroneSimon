@@ -29,7 +29,7 @@ class DriverBateriaMock(Driver):
 
         raise NotImplementedError( "Should have implemented this" )
 
-class SensorGPSTest(unittest.TestCase):
+class SensorBateriaTest(unittest.TestCase):
 
     def setUp(self):
 
