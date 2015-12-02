@@ -61,6 +61,11 @@ class SensorDataGPSTest(unittest.TestCase):
         dataGPS.setData(new_data)
         self.assertEquals(dataGPS.getData(), new_data)
 
+
+    def test_getAge(self):
+
+        self.assertIsNotNone(self.dataGPS.getData())
+
     def test_setAge(self):
 
         dataGPS = self.dataGPS

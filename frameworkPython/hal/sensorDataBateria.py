@@ -1,9 +1,14 @@
 from sensorData import SensorData
 from drivers.driver import Driver
 
+
 class SensorDataBateria(SensorData):
 
-    def __init__(self,drive):
+    def __init__(self,driver):
+        """
+        :type driver Driver
+        """
+        #data = {'nivel': 0}
         self.data = driver.getData()
         self.age = ""
 

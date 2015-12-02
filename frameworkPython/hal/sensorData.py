@@ -18,12 +18,12 @@ class SensorData(object):
          raise NotImplementedError( "Should have implemented this" )
 
     @abc.abstractmethod
-    def setAge(self):
+    def setAge(self, age):
         # tiene los datos del sensor
          raise NotImplementedError( "Should have implemented this" )
 
     @abc.abstractmethod
-    def setData(self):
+    def setData(self, data):
         # tiene los datos del sensor
         raise NotImplementedError( "Should have implemented this" )
 
