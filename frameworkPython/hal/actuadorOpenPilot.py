@@ -27,7 +27,7 @@ class ActuadorOpenPilot:
         self.canal4 = CanalPWM(self.pwm4, self.freq, self.valMinimo, self.valMaximo, self.defecto)
         self.canal5 = CanalPWM(self.pwm5, self.freq, self.valMinimo, self.valMaximo, self.valMinimo)
         self.canal6 = CanalPWM(self.pwm6, self.freq, self.valMinimo, self.valMaximo, self.valMinimo)
-        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getThrotle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
         self.data= ActuadorDataOpenPilot(self.diccionarioData)
 
 
@@ -41,7 +41,7 @@ class ActuadorOpenPilot:
         self.canal4.inicio()
         self.canal5.inicio()
         self.canal6.inicio()
-        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getThrotle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
         self.data.setData(self.diccionarioData)
 
     # solo resetea valores sin reinniciar comunicación
@@ -52,7 +52,7 @@ class ActuadorOpenPilot:
         self.setTimon(50)
         self.setModoVuelo(0)
         self.setOnOff(0)
-        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'throtle':self.getThrotle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
         self.data.setData(self.diccionarioData)
     #""" uso para except KeyboardInterrupt o similares"""
 
@@ -64,7 +64,7 @@ class ActuadorOpenPilot:
         self.canal4.interrumpir()
         self.canal5.interrumpir()
         self.canal6.interrumpir()
-        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'throtle':self.getTortle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
+        self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'throtle':self.getThrotle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
         self.data.setData(self.diccionarioData)
 
     #roll- Aleron: inclinacion derecha e izquierda
@@ -79,7 +79,7 @@ class ActuadorOpenPilot:
         self.diccionarioData['pitch']=self.getPitch(self)
         self.setData(self.diccionarioData)
 
-    #tortle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
+    #throtle - Acelerador : potencia, la direccion en la que va, depende de angulo de inclinacion del dron
     def setThrotle(self, vel):
         self.canal3.setDuty(vel)
         self.diccionarioData['throtle']=self.getThrotle()
@@ -162,7 +162,7 @@ class ActuadorOpenPilot:
             print i
         self.resetearValores()
 
-    #data = {'roll':0,  'pitch':0, 'tortle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no(0/1)}
+    #data = {'roll':0,  'pitch':0, 'throtle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no(0/1)}
     def setData(self, data):
         self.data.setData(data)
 
