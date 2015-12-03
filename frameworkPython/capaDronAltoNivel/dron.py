@@ -13,11 +13,11 @@ class Dron (object):
         """
 
         # este sera un diccionario
-        self.controladorDron = None
-        self.status = None
-        self.driver = None
+        self.controladorDron = ControladorDronMulticoptero()
+        #self.status = None
+        #self.driver = None
 
     @abc.abstractmethod
-    def setData(self):
+    def apagar(self):
         # pone los datos que viene en forma de diccionario de la capa controlador Dron
         raise NotImplementedError( "Should have implemented this" )
