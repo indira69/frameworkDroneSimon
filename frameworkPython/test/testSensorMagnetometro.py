@@ -1,12 +1,12 @@
 import unittest
 from drivers.driver import Driver
-from hal.sensorMagnometro import SensorMagnometro
+from hal.sensorMagnetometro import SensorMagnetometro
 
 
 data = {'angulo' : 120}
 status = 'ok'
 
-class DriverMagnometroMock(Driver):
+class DriverMagnetometroMock(Driver):
 
     def __init__(self):
 
@@ -29,22 +29,22 @@ class DriverMagnometroMock(Driver):
 
         raise NotImplementedError( "Should have implemented this" )
 
-class SensorMagnometroTest(unittest.TestCase):
+class SensorMagnetometroTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.sensorMagnometro = SensorMagnometro(DriverMagnometroMock())
+        self.sensorMagnetometro = SensorMagnetometro(DriverMagnometroMock())
 
     def test_getLastInfo_NoNone(self):
 
-        self.assertIsNotNone(self.sensorMagnometro.getLastInfo())
+        self.assertIsNotNone(self.sensorMagnetometro.getLastInfo())
 
     def test_getEstado_NoNone(self):
 
-        self.assertIsNotNone(self.sensorMagnometro.getEstado())
+        self.assertIsNotNone(self.sensorMagnetometro.getEstado())
 
     def test_getAltura(self):
 
-        self.assertEquals(self.sensorMagnometro.getAnguloCabezaDron(), data['angulo'])
+        self.assertEquals(self.sensorMagnetometro.getAnguloCabezaDron(), data['angulo'])
 
 

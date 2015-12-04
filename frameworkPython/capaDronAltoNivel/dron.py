@@ -1,5 +1,5 @@
 import abc
-#Abstract Base Class todo son objetos en python y derivan de abc
+# Abstract Base Class todo son objetos en python y derivan de abc
 
 from abc import ABCMeta
 from capaDronBajoNivel.controladorDron import ControladorDron

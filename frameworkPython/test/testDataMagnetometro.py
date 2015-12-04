@@ -1,11 +1,11 @@
 import unittest
 from drivers.driver import Driver
-from hal.sensorDataMagnometro import SensorDataMagnometro
+from hal.sensorDataMagnetometro import SensorDataMagnetrometro
 
 
 data = {'angulo': 90}
 
-class DriverMagnometroMock(Driver):
+class DriverMagnetometroMock(Driver):
 
     def __init__(self):
 
@@ -28,11 +28,11 @@ class DriverMagnometroMock(Driver):
         raise NotImplementedError( "Should have implemented this" )
 
 
-class SensorDataMagnometroTest(unittest.TestCase):
+class SensorDataMagnetometroTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.dataMagnometro = SensorDataMagnometro(DriverMagnometroMock())
+        self.dataMagnometro = SensorDataMagnetrometro(DriverMagnetometroMock())
 
     def test_getData_NoNone(self):
 
@@ -44,10 +44,10 @@ class SensorDataMagnometroTest(unittest.TestCase):
 
     def test_setData(self):
 
-        dataMagnometro = self.dataMagnometro
+        dataMagnetometro = self.dataMagnometro
         new_data = {'altura': 50}
-        dataMagnometro.setData(new_data)
-        self.assertEquals(dataMagnometro.getData(), new_data)
+        dataMagnetometro.setData(new_data)
+        self.assertEquals(dataMagnetometro.getData(), new_data)
 
     def test_getAge(self):
 
@@ -55,7 +55,7 @@ class SensorDataMagnometroTest(unittest.TestCase):
 
     def test_setAge(self):
 
-        dataMagnometro = self.dataMagnometro
+        dataMagnetometro = self.dataMagnometro
         new_age = 'new age'
-        dataMagnometro.setAge(new_age)
-        self.assertEquals(dataMagnometro.getAge(), new_age)
+        dataMagnetometro.setAge(new_age)
+        self.assertEquals(dataMagnetometro.getAge(), new_age)
