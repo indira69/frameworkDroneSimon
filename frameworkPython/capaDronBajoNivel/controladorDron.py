@@ -11,15 +11,20 @@ class ControladorDron(object):
     # encender equivale a decir armar motores en OP
     @abc.abstractmethod
     def encender(self):
-        # pone los datos que viene en forma de diccionario de la capa controlador Dron
         raise NotImplementedError( "Should have implemented this" )
 
     @abc.abstractmethod
     def apagar(self):
-        # pone los datos que viene en forma de diccionario de la capa controlador Dron
         raise NotImplementedError( "Should have implemented this" )
 
     @abc.abstractmethod
     def apagar(self):
-        # pone los datos que viene en forma de diccionario de la capa controlador Dron
+         raise NotImplementedError( "Should have implemented this" )
+
+    @abc.abstractmethod
+    def getAnguloCabeza(self):
+        raise NotImplementedError( "Should have implemented this" )
+
+    @abc.abstractmethod
+    def getCoordenadas(self):
         raise NotImplementedError( "Should have implemented this" )

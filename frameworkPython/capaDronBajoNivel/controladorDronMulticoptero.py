@@ -4,7 +4,7 @@ from hal.actuadorOpenPilot import ActuadorOpenPilot
 from hal.sensorGPS import SensorGPS
 from hal.sensorGiroscopio import SensorGiroscopio
 from hal.sensorUltrasonido import SensorUltrasonido
-from hal.sensorMagnometro import SensorMagnometro
+from hal.sensorMagnetometro import SensorMagnetometro
 from hal.sensorBateria import SensorBateria
 
 from controladorDronVolador import ControladorDronVolador
@@ -16,7 +16,7 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         self.sensorGPS=SensorGPS()
         self.sensorGiroscopio=SensorGiroscopio()
         self.sensorUltrasonido = SensorUltrasonido()
-        self.sensorMagnometro = SensorMagnometro()
+        self.sensorMagnetometro = SensorMagnetometro()
         self.sensorBateria= SensorBateria()
 
     # encender equivale a decir armar motores en OP
@@ -72,3 +72,22 @@ class ControladorDronMulticoptero(ControladorDronVolador):
     def roll_izquierda(self, grados):
         velocidad=grados*360/100
         self.actuadorOP.setRoll(velocidad)
+
+    # devuelve el angulo de la cabeza del dron  del 0 al 360 donde el 0 es el norte
+    def getAnguloCabeza(self):
+        return self.sensorMagnetometro.getAnguloCabezaDron()
+
+    # me da la distancia del dron al suelo
+    def getDistancaSuelo(self):
+        return self.sensorUltrasonido.getAltura()
+
+    # devuelve x y z (longitud, latitud y z)
+    def getCoordenadas(self):
+        xy=self.sensorGPS.getCoordenadas()
+        x=xy['x']
+        y=xy['y']
+        z=self.getAnguloCabeza()
+        return (x,y,z)
+
+    
+

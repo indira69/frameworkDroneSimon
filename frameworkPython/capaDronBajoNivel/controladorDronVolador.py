@@ -54,3 +54,8 @@ class ControladorDronVolador(ControladorDron):
     @abc.abstractmethod
     def roll_izquierda(self, grados):
         raise NotImplementedError( "Should have implemented this" )
+
+    # me da la distancia del dron al suelo
+    @abc.abstractmethod
+    def getDistancaSuelo(self):
+        raise NotImplementedError( "Should have implemented this" )
