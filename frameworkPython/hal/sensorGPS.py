@@ -2,6 +2,8 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataGPS import SensorDataGPS
 
+__author__ = 'Diego Garcia'
+
 
 class SensorGPS(Sensor):
 

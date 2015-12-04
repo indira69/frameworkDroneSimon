@@ -2,6 +2,8 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataUltrasonido import SensorDataUltrasonido
 
+__author__ = 'Diego Garcia'
+
 
 class SensorUltrasonido(Sensor):
 

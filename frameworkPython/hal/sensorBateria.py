@@ -2,15 +2,16 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataBateria import SensorDataBateria
 
+#modified by Diego Garcia
 class SensorBateria(Sensor):
 
     def __init__(self, driver):
         self.sensorData = SensorDataBateria(driver)
         self.status = driver.getStatus()
-        self.driver
+        self.driver = driver
 
     def getLastInfo(self):
-        return self.data
+        return self.sensorData
 
     def getEstado(self):
         return self.status
@@ -20,3 +21,6 @@ class SensorBateria(Sensor):
 
     def forceRead(self):
         self.driver.forceRead()
+
+    def getNivel(self):
+        return self.sensorData.getData()['nivel']

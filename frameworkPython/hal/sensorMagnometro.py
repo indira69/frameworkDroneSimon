@@ -2,6 +2,8 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataMagnometro import SensorDataMagnometro
 
+__author__ = 'Diego Garcia'
+
 
 class SensorMagnometro(Sensor):
 
