@@ -1,18 +1,18 @@
 from drivers.driver import Driver
 from sensor import Sensor
-from sensorDataMagnometro import SensorDataMagnometro
+from sensorDataMagnetometro import SensorDataMagnetometro
 
 __author__ = 'Diego Garcia'
 
 
-class SensorMagnometro(Sensor):
+class SensorMagnetometro(Sensor):
 
     def __init__(self, driver):
         """
         :type driver Driver
         """
 
-        self.sensorData = SensorDataMagnometro(driver)
+        self.sensorData = SensorDataMagnetometro(driver)
         self.status = driver.getStatus()
         self.driver = driver
 
