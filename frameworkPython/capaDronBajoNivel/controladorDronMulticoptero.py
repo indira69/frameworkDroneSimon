@@ -45,15 +45,15 @@ class ControladorDronMulticoptero(ControladorDronVolador):
 
     # elevar el dron  distancia estará a
     def up(self, distancia):
-        distancia1=distancia*????
+        distancia1=distancia
         self.actuadorOP.setThrotle(distancia1)
 
     # bajar el dron distancia
     def down(self, distancia):
-        distancia1=distancia*?????
+        distancia1=distancia
         self.actuadorOP.setThrotle(distancia1)
 
-    # cabeceo - elevación de la cabeza
+    # cabeceo - elevacion de la cabeza
     def pitch_arriba(self, grados):
         velocidad=grados*360/100
         self.actuadorOP.setPitch(velocidad)
