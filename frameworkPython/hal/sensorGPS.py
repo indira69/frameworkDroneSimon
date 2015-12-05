@@ -2,8 +2,6 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataGPS import SensorDataGPS
 
-__author__ = 'Diego Garcia'
-
 
 class SensorGPS(Sensor):
 
@@ -17,22 +15,18 @@ class SensorGPS(Sensor):
         self.driver = driver
 
     def getLastInfo(self):
-
         return self.sensorData
 
     def getEstado(self):
-
         return self.status
 
     def reset(self):
-
         self.driver.reset()
 
     def forceRead(self):
-
         self.driver.forceRead()
 
     def getCoordenadas(self):
-
+        self.driver.forceRead()
         data = self.sensorData.getData()
-        return (data['latitud'], data['longitud'], data['altura'])
+        return (data['latitud'], data['longitud'], data['altura'], data['velocidad'])
