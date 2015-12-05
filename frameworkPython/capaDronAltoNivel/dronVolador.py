@@ -20,7 +20,6 @@ class DronVolador (Dron):
         # inicializa
         Dron.__init__(controladorDronVolador)
 
-
     @abc.abstractmethod
     def aterrizar(self):
         raise NotImplementedError( "Should have implemented this" )

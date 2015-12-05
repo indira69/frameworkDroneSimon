@@ -9,17 +9,16 @@ from scipy.spatial import distance
 class Dron (object):
     __metaclass__ = ABCMeta
 
-
     def __init__(self,controladorDron):
         """
         :type controladorDron: ControladorDron
         """
         # Este es un controlador con funciones de nivel intermedio en la comunicación del dron
-        self.controladorDron = ControladorDron()
+        self.controladorDron = controladorDron
         self.encendido=False
         self.modo=None
-        self.puntoPartida=(0,0,0)
-        self.puntoActual=(0,0,0)
+        self.puntoPartida=self.controladorDron.getCoordenadas()
+        self.posicionActual=self.controladorDron.getCoordenadas()
 
     def volver(self):
         self.ir(self.puntoPartida)
@@ -37,7 +36,7 @@ class Dron (object):
         raise NotImplementedError( "Should have implemented this" )
 
     def ir(self,puntoDestino):
-        distancia = distance.euclidean(self.puntoActual,puntoDestino)
+        distancia = distance.euclidean(self.posicionActual, puntoDestino)
         self.mirarA(puntoDestino)
         self.ir(puntoDestino)
 
@@ -47,8 +46,15 @@ class Dron (object):
     def apagar(self):
         self.controladorDron.apagar()
 
+    # devuelve la posición x,y,z del dron donde z es la altura del piso
+    def getPosicion(self):
+        self.posicionActual=self.controladorDron.getCoordenadas()
+        return self.posicionActual
 
-
+    def actualizarPuntoPartida(self):
+        self.posicionActual=self.controladorDron.getCoordenadas()
+        self.puntoPartida=self.posicionActual
+        return self.puntoPartida
 
 
 
