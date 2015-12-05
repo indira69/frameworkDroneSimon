@@ -17,7 +17,7 @@ class SensorMagnetometro(Sensor):
         self.driver = driver
 
     def getLastInfo(self):
-
+        self.sensorData.getData()
         return self.sensorData
 
     def getEstado(self):

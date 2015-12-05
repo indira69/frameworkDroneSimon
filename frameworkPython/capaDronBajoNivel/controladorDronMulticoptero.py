@@ -26,25 +26,24 @@ class ControladorDronMulticoptero(ControladorDronVolador):
     def apagar(self):
         self.actuadorOP.apagar()
 
-    # giro lateral de la cabeza
+    # giro lateral de la cabeza desde la pocisión donde esta
     def yaw(self, grados):
-        velocidad= grados*360/100
-        self.actuadorOP.setYaw(velocidad)
+        giro= grados*360/100
+        self.actuadorOP.setYaw(giro)
 
-    # giro lateral de la cabeza a la izquierda
-    def yaw_izquierda(self, grados):
-        velocidad=grados*360/100
-        self.actuadorOP.setYaw(velocidad)
+    # giro lateral de la cabeza a la izquierda desde la posicion donde esta
+    def yaw_izquierda(self, giro):
+        giro=grados*360/100
+        self.actuadorOP.setYaw(giro)
 
-
-    # giro lateral de la cabeza a la derecha
+    # giro lateral de la cabeza a la derecha desde la pocisión donde esta
     def yaw_derecha(self, grados):
         velocidad=grados*360/100
         self.actuadorOP.setYaw(velocidad)
 
-
     # elevar el dron  distancia estará a
     def up(self, distancia):
+        # el throtle es la velocidad de los motores
         distancia1=distancia
         self.actuadorOP.setThrotle(distancia1)
 
@@ -81,12 +80,12 @@ class ControladorDronMulticoptero(ControladorDronVolador):
     def getDistancaSuelo(self):
         return self.sensorUltrasonido.getAltura()
 
-    # devuelve x y z (longitud, latitud y z)
+    # devuelve x y z (longitud, latitud y altura al suelo)
     def getCoordenadas(self):
         xy=self.sensorGPS.getCoordenadas()
-        x=xy['x']
-        y=xy['y']
-        z=self.getAnguloCabeza()
+        x=xy['latitud']
+        y=xy['longitud']
+        z=self.getDistancaSuelo()
         return (x,y,z)
 
 

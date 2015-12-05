@@ -11,11 +11,12 @@ class SensorDataGPS(SensorData):
         :type driverGPS Driver
         """
 
-        #data = {'latitud : 0, longitud : 0, altura : 0, velocidad'}
+        # data es un diccionario data = {'latitud : 0, longitud : 0, altitud:0'}
         self.data = driverGPS.getData()
-        self.age = ""
+        self.age = "No age"
 
     def getData(self):
+        self.data= self.driverGPS.getLastInfo()
         return self.data
 
     def getAge(self):

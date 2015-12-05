@@ -14,7 +14,7 @@ class Sensor(object):
         #print "get Last Info"
 
     @abc.abstractmethod
-    def getEstado(self):
+    def getStatus(self):
         #devuelve el estado del sensor
          raise NotImplementedError( "Should have implemented this" )
 

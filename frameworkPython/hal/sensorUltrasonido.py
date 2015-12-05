@@ -18,6 +18,7 @@ class SensorUltrasonido(Sensor):
 
     def getLastInfo(self):
         # devuelve la informacion que tiene sensorData
+        self.data.getData()
         return self.data
 
     def getEstado(self):

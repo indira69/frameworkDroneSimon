@@ -41,7 +41,7 @@ class DriverGPS(Driver):
 					data = dict()
 					data['latitud'] = partes_linea.latitude
 					data['longitud'] = partes_linea.longitude
-					data['altura'] = partes_linea.altitude
+					data['altitud'] = partes_linea.altitude
 					return data
 
 	def getStatus(self):

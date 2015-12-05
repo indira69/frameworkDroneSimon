@@ -36,22 +36,22 @@ class SensorDataMagnetometroTest(unittest.TestCase):
 
     def test_getData_NoNone(self):
 
-        self.assertIsNotNone(self.dataMagnometro.getData())
+        self.assertIsNotNone(self.dataMagnometro.getLastInfo())
 
     def test_getData(self):
 
-        self.assertEquals(self.dataMagnometro.getData(), data)
+        self.assertEquals(self.dataMagnometro.getLastInfo(), data)
 
     def test_setData(self):
 
         dataMagnetometro = self.dataMagnometro
         new_data = {'altura': 50}
         dataMagnetometro.setData(new_data)
-        self.assertEquals(dataMagnetometro.getData(), new_data)
+        self.assertEquals(dataMagnetometro.getLastInfo(), new_data)
 
     def test_getAge(self):
 
-        self.assertIsNotNone(self.dataMagnometro.getData())
+        self.assertIsNotNone(self.dataMagnometro.getLastInfo())
 
     def test_setAge(self):
 
