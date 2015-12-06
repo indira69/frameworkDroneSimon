@@ -1,6 +1,8 @@
 from sensorData import SensorData
 from drivers.driver import Driver
 
+
+
 __author__ = 'Diego Garcia'
 
 
@@ -13,7 +15,7 @@ class SensorDataUltrasonido(SensorData):
 
         #data = {'altura' : 0}
         self.data = driver.getData()
-        self.age = ""
+        self.age = datetime.today()
 
     def getData(self):
 

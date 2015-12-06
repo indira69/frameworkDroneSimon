@@ -30,6 +30,9 @@ class ActuadorOpenPilot:
         self.diccionarioData={'roll':self.getRoll(), 'pitch':self.getPitch(),'tortle':self.getThrotle(),'yaw':self.getYaw(),'modoVuelo':self.getModoVuelo(),'prendidoApagado':self.getOnOff()}
         self.data= ActuadorDataOpenPilot(self.diccionarioData)
 
+        self.valorPitchParaIrAdelante=40
+        self.valorPitchParaIrAtraz=60
+
 
 
    #reset : reinicia comunicacion con canales y ajusta valores de canales a su estado inicial
@@ -172,3 +175,13 @@ class ActuadorOpenPilot:
     def getStatus(self):
         #habria que poner sensores al actuador para devolver el estado
          raise NotImplementedError( "Should have implemented this" )
+
+    # velocidad del 0-100, donde 100 es la máxima velocidad
+    def irAdelante(self, velocidad):
+        self.setPitch(self.valorPitchParaIrAdelante)
+        self.setThrotle(velocidad)
+
+    # velocidad del 0-100, donde 100 es la máxima velocidad
+    def irAtras(self, velocidad):
+        self.setPitch(self.valorPitchParaIrAdelante)
+        self.setThrotle(velocidad)

@@ -18,6 +18,8 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         self.sensorUltrasonido = SensorUltrasonido()
         self.sensorMagnetometro = SensorMagnetometro()
         self.sensorBateria= SensorBateria()
+        self.altitudSuelo=self.sensorGPS.getLastInfo().getData()['altitud']
+        self.alcanceUltrasonido=self.sensorUltrasonido.
 
     # encender equivale a decir armar motores en OP
     def encender(self):
@@ -28,8 +30,12 @@ class ControladorDronMulticoptero(ControladorDronVolador):
 
     # giro lateral de la cabeza desde la pocisión donde esta
     def yaw(self, grados):
-        giro= grados*360/100
-        self.actuadorOP.setYaw(giro)
+        # si es absoluto
+        giro1=50+(100-50)*grados/180
+
+        #si es en relacion para ir a la izquierda grados debe estar en negativo
+        giro2= self.actuadorOP.getYaw()+ (100-50)*grados/180
+        self.actuadorOP.setYaw(giro2)
 
     # giro lateral de la cabeza a la izquierda desde la posicion donde esta
     def yaw_izquierda(self, giro):
@@ -80,14 +86,18 @@ class ControladorDronMulticoptero(ControladorDronVolador):
     def getDistancaSuelo(self):
         return self.sensorUltrasonido.getAltura()
 
-    # devuelve x y z (longitud, latitud y altura al suelo)
+    # devuelve x y z (longitud, latitud y altura al suelo) como una tupla
     def getCoordenadas(self):
-        xy=self.sensorGPS.getCoordenadas()
+        xyz=self.sensorGPS.getCoordenadas()
         x=xy['latitud']
         y=xy['longitud']
-        z=self.getDistancaSuelo()
+        z=xy['altitud']
         return (x,y,z)
 
+    # avanza el dron
+    def irAdelante(self, velocidad):
+
+        actuadorOP.irAdelante(velocidad)
 
 
 

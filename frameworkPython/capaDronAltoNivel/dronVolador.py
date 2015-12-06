@@ -40,4 +40,7 @@ class DronVolador (Dron):
     def subir(self, distancia):
         raise NotImplementedError( "Should have implemented this" )
 
+    @abc.abstractmethod
+    def irAdelante(self, distancia):
+        raise NotImplementedError( "Should have implemented this" )
 
