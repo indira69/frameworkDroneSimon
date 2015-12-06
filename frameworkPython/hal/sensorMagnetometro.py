@@ -1,9 +1,10 @@
+__author__ = 'Diego Garcia'
+
 from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataMagnetometro import SensorDataMagnetometro
 
-__author__ = 'Diego Garcia'
-
+from datetime import *
 
 class SensorMagnetometro(Sensor):
 
@@ -12,12 +13,13 @@ class SensorMagnetometro(Sensor):
         :type driver Driver
         """
 
-        self.sensorData = SensorDataMagnetometro(driver)
+        self.sensorData = SensorDataMagnetometro(driver.getData(),datetime.today())
         self.status = driver.getStatus()
         self.driver = driver
 
     def getLastInfo(self):
-        self.sensorData.getData()
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
         return self.sensorData
 
     def getEstado(self):
@@ -33,5 +35,7 @@ class SensorMagnetometro(Sensor):
         self.driver.forceRead()
 
     def getAnguloCabezaDron(self):
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
 
         return self.sensorData.getData()['angulo']

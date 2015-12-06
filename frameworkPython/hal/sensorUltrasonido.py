@@ -7,7 +7,7 @@ from sensorDataUltrasonido import SensorDataUltrasonido
 
 from datetime import *
 
-lass SensorUltrasonido(Sensor):
+class SensorUltrasonido(Sensor):
 
     def __init__(self, driver, alcance):
         """
@@ -24,7 +24,7 @@ lass SensorUltrasonido(Sensor):
         # devuelve la informacion que tiene sensorData
         self.sensorData.setData(self.driver.getData())
         self.sensorData.setAge(datetime.today())
-        return self.sensorData.getData()
+        return self.sensorData
 
     def getEstado(self):
         #devuelve el estado del sensor

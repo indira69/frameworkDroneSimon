@@ -2,6 +2,8 @@ from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataGPS import SensorDataGPS
 
+from datetime import *
+
 class SensorGPS(Sensor):
 
     def __init__(self, driver):
@@ -9,16 +11,17 @@ class SensorGPS(Sensor):
         :type driver Driver
         """
 
-        self.sensorData = SensorDataGPS(driver)
+        self.sensorData = SensorDataGPS(driver.getData(),datetime.today())
         self.status = driver.getStatus()
         self.driver = driver
 
     def getLastInfo(self):
-        self.sensorData.getData()
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
         return self.sensorData
 
     def getEstado(self):
-        return self.status
+        return self.driver.getStatus()
 
     def reset(self):
         self.driver.reset()
@@ -27,6 +30,7 @@ class SensorGPS(Sensor):
         self.driver.forceRead()
 
     def getCoordenadas(self):
-        self.driver.forceRead()
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
         data = self.sensorData.getData()
         return (data['latitud'], data['longitud'], data['altitud'])

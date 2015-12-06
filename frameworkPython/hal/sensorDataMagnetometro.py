@@ -6,14 +6,14 @@ __author__ = 'Diego Garcia'
 
 class SensorDataMagnetometro(SensorData):
 
-    def __init__(self, driver):
+    def __init__(self, data, age):
         """
         :type driver Driver
         """
 
         #sensorData = {angulo : 0}
-        self.data = driver.getData()
-        self.age = ""
+        self.data = data
+        self.age = age
 
     def getData(self):
 
