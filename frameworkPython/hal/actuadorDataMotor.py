@@ -7,7 +7,7 @@ class ActuadorDataMotor(ActuadorData):
         :type data Dictionary
         """
 
-        #data
+        #sensorData
         self.data = data
 
 

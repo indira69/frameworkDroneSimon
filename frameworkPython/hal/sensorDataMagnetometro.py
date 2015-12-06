@@ -11,7 +11,7 @@ class SensorDataMagnetometro(SensorData):
         :type driver Driver
         """
 
-        #data = {angulo : 0}
+        #sensorData = {angulo : 0}
         self.data = driver.getData()
         self.age = ""
 

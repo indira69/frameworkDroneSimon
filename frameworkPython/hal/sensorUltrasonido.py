@@ -1,30 +1,30 @@
+__author__ = 'Diego Garcia'
+# modificado I.C.C
+
 from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataUltrasonido import SensorDataUltrasonido
 
 from datetime import *
 
-__author__ = 'Diego Garcia'
-
-
-class SensorUltrasonido(Sensor):
+lass SensorUltrasonido(Sensor):
 
     def __init__(self, driver, alcance):
         """
         :type driver: Driver
         """
-
-        self.data = SensorDataUltrasonido(driver)
+        # age= datetime.today() guarda la fecha y la hora de la última lectura del sensor
+        self.sensorData = SensorDataUltrasonido(driver.getData(), datetime.today())
         self.status = driver.getStatus()
         self.driver=driver
         self.alcance=alcance
-        self.data.setAge(datetime.today())
+
 
     def getLastInfo(self):
         # devuelve la informacion que tiene sensorData
-        self.data.setData(self.driver.getData())
-        self.data.setAge(datetime.today())
-        return self.data.getData()
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
+        return self.sensorData.getData()
 
     def getEstado(self):
         #devuelve el estado del sensor
@@ -38,7 +38,13 @@ class SensorUltrasonido(Sensor):
         #obliga a leer al sensor
         self.driver.forceRead()
 
-    #
+    #al llamar driver.getData se obliga a leer al driver
     def getAltura(self):
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
+        return self.sensorData.getData()['altura']
 
-        return self.data.getData()['altura']
+    #devuelve el alcance máximo del ultrasonido si 0 es que esta en el piso
+    # si está en el máximo puede estar mas de  el máximo
+    def getAlcance(self):
+        return self.alcance

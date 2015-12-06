@@ -10,7 +10,7 @@ class ActuadorDataOpenPilot(ActuadorData):
         """
         :type data Diccionario
         """
-        #data = {'roll':0,  'pitch':0, 'tortle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no}
+        #sensorData = {'roll':0,  'pitch':0, 'tortle':0,'yaw':0, 'modoVuelo':estabilizado/acrobatico/ rate (ratios. hasta 6), 'prendido':si/no}
         self.data = data
 
 

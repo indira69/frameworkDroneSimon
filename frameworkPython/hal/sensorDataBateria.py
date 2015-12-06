@@ -8,7 +8,7 @@ class SensorDataBateria(SensorData):
         """
         :type driver Driver
         """
-        #data = {'nivel': 0}
+        #sensorData = {'nivel': 0}
         self.data = driver.getData()
         self.age = ""
 

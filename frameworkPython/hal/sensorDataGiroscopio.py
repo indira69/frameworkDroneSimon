@@ -14,7 +14,7 @@ class SensorDataGiroscopio(SensorData):
         :type driver Driver
         """
 
-        #data = {'x': 0, 'y': 0, 'z': 0, 'angulo': 0}
+        #sensorData = {'x': 0, 'y': 0, 'z': 0, 'angulo': 0}
         self.data = driver.getData()
         self.age = datetime.today()
 
