@@ -21,7 +21,7 @@ class SensorUltrasonido(Sensor):
 
 
     def getLastInfo(self):
-        # devuelve la informacion que tiene sensorData
+        # devuelve la informacion que tiene sensorData, luego de leer el driver
         self.sensorData.setData(self.driver.getData())
         self.sensorData.setAge(datetime.today())
         return self.sensorData
