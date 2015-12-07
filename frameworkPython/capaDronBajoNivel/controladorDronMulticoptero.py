@@ -21,24 +21,31 @@ class ControladorDronMulticoptero(ControladorDronVolador):
 
     def __init__(self):
         self.actuadorOP= ActuadorOpenPilot()
-        self.sensorGPS=SensorGPS(DriverGPS())
-        self.sensorGiroscopio=SensorGiroscopio(DriverGiroscopio())
-        self.alcanceUltrasonido=4000
-        self.sensorUltrasonido = SensorUltrasonido(DriverUltrasonido(),alcanceUltrasonido)
+
         self.sensorMagnetometro = SensorMagnetometro(DriverMagnetometro())
+        self.sensorGiroscopio=SensorGiroscopio(DriverGiroscopio())
         self.sensorBateria= SensorBateria()
 
+        self.alcanceUltrasonido=4000
+        self.sensorUltrasonido = SensorUltrasonido(DriverUltrasonido(),alcanceUltrasonido)
+
+        self.sensorGPS=SensorGPS(DriverGPS())
         # convierto la info del GPS a centimetros porque viene en metros
         self.altitudSuelo=self.sensorGPS.getLastInfo().getData()['altitud']*100
-        self.alcanceUltrasonido=self.sensorUltrasonido.getAlcance()
+
+        # para yaw, pitch, roll
         self.velocidadMaxGiroOP=50
         self.velocidadCeroGiroOP=50
 
-        self.velocidadEstable=70
+        # para Throtle
+        self.velocidadEstable=64
         self.velocidad10cm=30
         self.velocidad5cm=20
         self.velocidadMaxMotores=100
         self.distanciaMinimaDelSuelo=30  # 30 centimetros
+
+        # angulo para avanzar
+        self.anguloAvance=5
 
     # encender equivale a decir armar motores en OP
     def encender(self):
@@ -54,13 +61,6 @@ class ControladorDronMulticoptero(ControladorDronVolador):
     # velocidad es un entero de 1 al 50, no puede ser 0
     # si grados es negativo ira a la izquierda
     def yaw(self, grados, velocidad):
-        # si es absoluto
-        # giro1=50+(100-50)*grados/180
-
-        #si es en relacion para ir a la izquierda grados debe estar en negativo
-        #giro2= self.actuadorOP.getYaw()+ (100-50)*grados/180
-        #self.actuadorOP.setYaw(giro2)
-
         anguloInicial=self.sensorMagnetometro.getAnguloCabezaDron()
         gradosAlcanzados=0
 
@@ -141,18 +141,17 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         distanciaInicial=self.getDistanciaSuelo()
         distanciaAlcanzada=distanciaInicial
 
-        velocidad=velocidadEstable/2
+        velocidad=velocidadEstable*0.8
         self.actuadorOP.setThrotle(velocidad)
         while (distanciaAlcanzada>40 ):
              distanciaAlcanzada=self.getDistanciaSuelo()
              time.sleep(.300)
 
-        velocidad=velocidadEstable/3
+        velocidad=velocidadEstable/2
         self.actuadorOP.setThrotle(velocidad)
         while (distanciaAlcanzada>10 ):
              distanciaAlcanzada=self.getDistanciaSuelo()
              time.sleep(.300)
-
 
         velocidad=self.velocidad10cm
         self.actuadorOP.setThrotle(velocidad)
@@ -165,29 +164,106 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         self.actuadorOP.setThrotle(self.velocidad5cm/2)
         self.apagar()
 
-    # cabeceo - elevacion de la cabeza, es el giroscopio atributo Y
-    def pitch_arriba(self, grados):
-        velocidad=grados*360/100
-        self.actuadorOP.setPitch(velocidad)
+    # cabeceo - elevacion de la cabeza la sube/baja a los "grados" indicados en y del giroscopio
+    # a la velocidad(0-50) indicada
+    def pitch_arriba(self, grados, velocidad):
 
-    # cabeceo - bajar la cabeza
-    def pitch_abajo(self, grados):
-        velocidad=grados*360/100
-        self.actuadorOP.setPitch(velocidad)
+        grados=-abs(grados) # porque el "angulo y" hacia arriba es negativo
+        y= self.sensorGiroscopio.getLastInfo().getData()['y']
+        if (velocidad>50):
+            velocidad=50
 
-    # giro lateral de costado a la derecha
-    def roll_derecha(self, grados):
-        velocidad=grados*360/100
-        self.actuadorOP.setRoll(velocidad)
+        direccion=1 #subir
+        if (y<grados):
+            direccion=-1 #bajar
+
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP+velocidad*direccion)
+        while ( y<grados & velocidad>0  & direccion==-1 ):   #bajar
+           y= self.sensorGiroscopio.getLastInfo().getData()['y']
+           time.sleep(.300)
+
+        while ( y>grados & velocidad>0  & direccion==1 ):   #subir
+           y= self.sensorGiroscopio.getLastInfo().getData()['y']
+           time.sleep(.300)
+
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP)
+
+    # cabeceo - bajar la cabeza, baja los "grados" en y de giroscopio a la velocidad (1-50) indicada
+    def pitch_abajo(self, grados, velocidad):
+
+        grados=abs(grados) # porque el "angulo y" hacia abajo es positivo
+
+        y= self.sensorGiroscopio.getLastInfo().getData()['y']
+        if (velocidad>50):
+            velocidad=50
+
+        direccion=1 #subir
+        if (y<grados):
+            direccion=-1 #bajar
+
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP+velocidad*direccion)
+
+        while ( y<grados & velocidad>0  & direccion==-1 ):   #bajar
+           y= self.sensorGiroscopio.getLastInfo().getData()['y']
+           time.sleep(.300)
+
+        while ( y>grados & velocidad>0  & direccion==1 ):   #subir
+           y= self.sensorGiroscopio.getLastInfo().getData()['y']
+           time.sleep(.300)
+
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP)
+
+    # giro lateral de costado a la derecha: x giroscopio positivo
+    # deja el dron en "grados" a la derecha a la "velocidad" indicada
+    def roll_derecha(self, grados, velocidad):
+        grados=abs(grados) # porque el "angulo x" a la derecha es positivo
+
+        x= self.sensorGiroscopio.getLastInfo().getData()['x']
+        if (velocidad>50):
+            velocidad=50
+
+        direccion=1 #ir derecha
+        if (x>grados):
+            direccion=-1 #ir izquierda
+
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP+velocidad*direccion)
+
+        while ( x<grados & velocidad>0  & direccion==1 ):   # ir a la derecha
+           x= self.sensorGiroscopio.getLastInfo().getData()['x']
+           time.sleep(.300)
+
+        while ( x>grados & velocidad>0  & direccion==-1 ):   # ir a la izquierda
+           x= self.sensorGiroscopio.getLastInfo().getData()['x']
+           time.sleep(.300)
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP)
 
     # giro lateral de costado a la izquierda
-    def roll_izquierda(self, grados):
-        velocidad=grados*360/100
-        self.actuadorOP.setRoll(velocidad)
+    # deja el dron en "grados" a la izquierda a la "velocidad" indicada
+    def roll_izquierda(self, grados, velocidad ):
+        grados=-abs(grados) # porque el "angulo x" a la izquierda es negativo
 
-    # devuelve el angulo de la cabeza del dron  del 0 al 360 donde el 0 es el norte
-    def getAnguloCabeza(self):
-        return self.sensorMagnetometro.getAnguloCabezaDron()
+        x= self.sensorGiroscopio.getLastInfo().getData()['x']
+        if (velocidad>50):
+            velocidad=50
+
+        direccion=1 #ir derecha
+        if (x>grados):
+            direccion=-1 #ir izquierda
+
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP+velocidad*direccion)
+
+        while ( x<grados & velocidad>0  & direccion==1 ):   # ir a la derecha
+           x= self.sensorGiroscopio.getLastInfo().getData()['x']
+           time.sleep(.300)
+
+        while ( x>grados & velocidad>0  & direccion==-1 ):   # ir a la izquierda
+           x= self.sensorGiroscopio.getLastInfo().getData()['x']
+           time.sleep(.300)
+        self.actuadorOP.setPitch(self.velocidadCeroGiroOP)
+
+    # devuelve los angulos x, y z en un diccionario
+    def getAngulosCabeza(self):
+        return self.sensorGiroscopio.getLastInfo().getData()
 
     # devuelve x y z (longitud, latitud y altura al suelo en cm) como una tupla
     def getCoordenadas(self):
@@ -197,14 +273,56 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         z=self.getDistancaSuelo()
         return (x,y,z)
 
-    # avanza el dron
+    # avanza el dron en dirección a al acabeza
     def irAdelante(self, velocidad):
+        velocidad=self.velocidadEstable+abs(velocidad)
+        if (velocidad>self.velocidadMaxMotores):
+            velocidad=self.velocidadMaxMotores
 
-        actuadorOP.irAdelante(velocidad)
+        self.nivelarDron()
+        self.pitch_abajo(self.anguloAvance,5)
+        self.actuadorOP.setThrotle(velocidad)
 
+    # avanza el dron en dirección contraria a la cabeza
+    def irAtras(self, velocidad):
+        velocidad=self.velocidadEstable+abs(velocidad)
+        if (velocidad>self.velocidadMaxMotores):
+            velocidad=self.velocidadMaxMotores
+
+        self.nivelarDron()
+        self.pitch_arriba(self.anguloAvance,5)
+        self.actuadorOP.setThrotle(velocidad)
+
+    # avanza el dron hacia la derecha de su cabeza
+    def irDerecha(self,velocidad):
+        velocidad=self.velocidadEstable+abs(velocidad)
+        if (velocidad>self.velocidadMaxMotores):
+            velocidad=self.velocidadMaxMotores
+
+        self.nivelarDron()
+        self.roll_derecha(self.anguloAvance,5)
+        self.actuadorOP.setThrotle(velocidad)
+
+    # avanza el dron hacia la izquierda de su cabeza
+    def irIzquierdad(self,velocidad):
+        velocidad=self.velocidadEstable+abs(velocidad)
+        if (velocidad>self.velocidadMaxMotores):
+            velocidad=self.velocidadMaxMotores
+
+        self.nivelarDron()
+        self.roll_izquierda(self.anguloAvance,5)
+        self.actuadorOP.setThrotle(velocidad)
+
+    # pone el "x"  e "y" del giroscopio en 0
     def nivelarDron(self):
-        #hace que X e Y del giroscopio esten en 0
-         raise NotImplementednError( "Should have implemented this" )
+        self.pitch_abajo(0,5)
+        self.roll_derecha(0,5)
+
+    # estabilizado - acrobatico
+    def setModo(self,modo):
+        self.actuadorOP.setModoVuelo(modo)
+
+
 
 
 
