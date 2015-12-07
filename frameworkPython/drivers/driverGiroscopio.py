@@ -117,9 +117,9 @@ class DriverGiroscopio(Driver) :
 		gyro_yout = read_word_2c(0x45)
 		gyro_zout = read_word_2c(0x47)
 
-		data['x'] = (gyro_xout / 131)
-		data['y'] = (gyro_yout / 131)
-		data['z'] = (gyro_zout / 131)
+		data['x'] = (gyro_xout / 131) #scaled
+		data['y'] = (gyro_yout / 131) #scaled
+		data['z'] = (gyro_zout / 131) #scaled
 
 		return data
 

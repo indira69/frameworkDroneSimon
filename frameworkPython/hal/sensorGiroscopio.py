@@ -19,10 +19,8 @@ class SensorGiroscopio(Sensor):
 
     def getLastInfo(self):
         # devuelve la informacion que tiene sensorData
-        last_info = self.sensorData
-        self.sensorData.setData(self.driver.getData())
-        self.sensorData.setAge(datetime.today())
-        return last_info
+        self.actualizarData()
+        return self.sensorData
 
     def getEstado(self):
         #devuelve el estado del sensor
@@ -40,6 +38,7 @@ class SensorGiroscopio(Sensor):
         """
         :return: una tupla con un vistaso de la posicion
         """
+        self.actualizarData()
         data = self.sensorData.getData()
         return (data['x'], data['y'], data['z'])
 
@@ -47,4 +46,10 @@ class SensorGiroscopio(Sensor):
         """
         :return: inclinacion x, inclinacion y
         """
+        self.actualizarData()
         return (self.sensorData.getData()['inclinacion_x'], self.driver.getData()['inclinacion_y'])
+
+    def actualizarData(self):
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
+
