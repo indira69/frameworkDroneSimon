@@ -50,7 +50,7 @@ except KeyboardInterrupt:
 
 #modified by Diego Garcia
 from driver import Driver
-class DriverMagnometro(Driver):
+class DriverMagnetometro(Driver):
 
 	def getData(self):
 
