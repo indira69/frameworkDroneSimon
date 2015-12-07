@@ -1,27 +1,22 @@
 from sensorData import SensorData
 from drivers.driver import Driver
 
-from datetime import *
-
 
 __author__ = 'Diego Garcia'
 
 
 class SensorDataGiroscopio(SensorData):
 
-    def __init__(self, driver):
+    def __init__(self, driver, age):
         """
         :type driver Driver
         """
-
-        #sensorData = {'x': 0, 'y': 0, 'z': 0, 'angulo': 0}
+        #data = {'x': 0, 'y': 0, 'z': 0, 'inclinacion_x': 0, 'inclinacion_y' : 0}
         self.data = driver.getData()
-        self.age = datetime.today()
+        self.age = age
 
     def getData(self):
         # tiene los datos del sensor
-        self.data.getData()
-        self.age = datetime.today()
         return self.data
 
     def getAge(self):

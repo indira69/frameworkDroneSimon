@@ -1,6 +1,7 @@
 from drivers.driver import Driver
 from sensor import Sensor
 from sensorDataGiroscopio import SensorDataGiroscopio
+from datetime import *
 
 __author__ = 'Diego Garcia'
 
@@ -12,14 +13,16 @@ class SensorGiroscopio(Sensor):
         :type driver: Driver
         """
 
-        self.data = SensorDataGiroscopio(driver)
+        self.sensorData = SensorDataGiroscopio(driver, datetime.today())
         self.status = driver.getStatus()
-        self.driver=driver
+        self.driver = driver
 
     def getLastInfo(self):
         # devuelve la informacion que tiene sensorData
-        self.data.getData()
-        return self.data
+        last_info = self.sensorData
+        self.sensorData.setData(self.driver.getData())
+        self.sensorData.setAge(datetime.today())
+        return last_info
 
     def getEstado(self):
         #devuelve el estado del sensor
@@ -37,11 +40,11 @@ class SensorGiroscopio(Sensor):
         """
         :return: una tupla con un vistaso de la posicion
         """
-        data = self.data.getData()
+        data = self.sensorData.getData()
         return (data['x'], data['y'], data['z'])
 
     def verInclinacion(self):
         """
-        :return: angulo
+        :return: inclinacion x, inclinacion y
         """
-        return self.data.getData()['angulo']
+        return (self.sensorData.getData()['inclinacion_x'], self.driver.getData()['inclinacion_y'])
