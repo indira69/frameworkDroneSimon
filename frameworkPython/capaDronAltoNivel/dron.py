@@ -14,14 +14,14 @@ class Dron (object):
         :type controladorDron: ControladorDron
         """
         # Este es un controlador con funciones de nivel intermedio en la comunicación del dron
-        self.controladorDron = controladorDron
+        self.controladorDron = ControladorDron()
         self.encendido=False
         self.modo=None
         self.puntoPartida=self.controladorDron.getCoordenadas()
         self.posicionActual=self.controladorDron.getCoordenadas()
 
     def volver(self):
-        self.ir(self.puntoPartida)
+        self.irA(self.puntoPartida)
 
     #calcula la distancia euclideana entre dos puntos
     def distancia3d(self,p1,p2):
@@ -31,14 +31,27 @@ class Dron (object):
         #dst =
 
     @abc.abstractmethod
-    # dirige la cabeza al punto XYZ
+    # dirige la cabeza al punto XYZ, que es un diccionario con x,y,z
     def mirarA(self, puntoXYZ):
         raise NotImplementedError( "Should have implemented this" )
 
-    def ir(self,puntoDestino):
+    # En el caso del Open Pilot la velocidad 0-30 aproximadamente
+    #  dependerá en cuanto se calibró la velocidad de estable
+    def irA(self, puntoDestino, velocidad):
         distancia = distance.euclidean(self.posicionActual, puntoDestino)
         self.mirarA(puntoDestino)
-        self.ir(puntoDestino)
+        self.controladorDron.irAdelante(velocidad)
+        direccionX=1
+        if (self.posiciónActual['x']>puntoDestino['x']):
+            direccionX=-1
+
+        direccionY=1
+        if (self.posiciónActual['y']>puntoDestino['y']):
+            direccionY=-1
+
+
+        while (True):
+            a=1
 
     def encender(self):
         self.controladorDron.encender()

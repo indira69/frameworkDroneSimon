@@ -18,7 +18,7 @@ class ControladorDron(object):
         raise NotImplementedError( "Should have implemented this" )
 
     @abc.abstractmethod
-    def apagar(self):
+    def getStatus(self):
          raise NotImplementedError( "Should have implemented this" )
 
     @abc.abstractmethod
@@ -27,4 +27,12 @@ class ControladorDron(object):
 
     @abc.abstractmethod
     def getCoordenadas(self):
+        raise NotImplementedError( "Should have implemented this" )
+
+    @abc.abstractmethod
+    def irAdelante(self):
+        raise NotImplementedError( "Should have implemented this" )
+
+    @abc.abstractmethod
+    def setModo(self):
         raise NotImplementedError( "Should have implemented this" )

@@ -19,10 +19,6 @@ class SensorGiroscopio(Sensor):
 
     def getLastInfo(self):
 <<<<<<< HEAD
-        # devuelve la informacion que tiene sensorData
-        self.actualizarData()
-        return self.sensorData
-=======
         # devuelve la informacion que tiene sensorData, luego de leer el driver
         self.sensorData.setData(self.driver.getData())
         self.sensorData.setAge(datetime.today())

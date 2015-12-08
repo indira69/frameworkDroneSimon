@@ -59,3 +59,15 @@ class ControladorDronVolador(ControladorDron):
     @abc.abstractmethod
     def getDistancaSuelo(self):
         raise NotImplementedError( "Should have implemented this" )
+
+    # dirige el dron hacia la dirección que apunta la cabeza
+    @abc.abstractmethod
+    def irAdelante(self):
+        raise NotImplementedError( "Should have implemented this" )
+
+    # obtiene los ángulos x, y,  z del giroscopio, que son los angulos de inclinación de la cabeza
+    @abc.abstractmethod
+    def getAngulosCabeza(self):
+        raise NotImplementedError( "Should have implemented this" )
+
+

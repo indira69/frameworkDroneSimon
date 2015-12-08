@@ -222,17 +222,17 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         if (velocidad>50):
             velocidad=50
 
-        direccion=1 #ir derecha
+        direccion=1 #irA derecha
         if (x>grados):
-            direccion=-1 #ir izquierda
+            direccion=-1 #irA izquierda
 
         self.actuadorOP.setPitch(self.velocidadCeroGiroOP+velocidad*direccion)
 
-        while ( x<grados & velocidad>0  & direccion==1 ):   # ir a la derecha
+        while ( x<grados & velocidad>0  & direccion==1 ):   # irA a la derecha
            x= self.sensorGiroscopio.getLastInfo().getData()['x']
            time.sleep(.300)
 
-        while ( x>grados & velocidad>0  & direccion==-1 ):   # ir a la izquierda
+        while ( x>grados & velocidad>0  & direccion==-1 ):   # irA a la izquierda
            x= self.sensorGiroscopio.getLastInfo().getData()['x']
            time.sleep(.300)
         self.actuadorOP.setPitch(self.velocidadCeroGiroOP)
@@ -246,17 +246,17 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         if (velocidad>50):
             velocidad=50
 
-        direccion=1 #ir derecha
+        direccion=1 #irA derecha
         if (x>grados):
-            direccion=-1 #ir izquierda
+            direccion=-1 #irA izquierda
 
         self.actuadorOP.setPitch(self.velocidadCeroGiroOP+velocidad*direccion)
 
-        while ( x<grados & velocidad>0  & direccion==1 ):   # ir a la derecha
+        while ( x<grados & velocidad>0  & direccion==1 ):   # irA a la derecha
            x= self.sensorGiroscopio.getLastInfo().getData()['x']
            time.sleep(.300)
 
-        while ( x>grados & velocidad>0  & direccion==-1 ):   # ir a la izquierda
+        while ( x>grados & velocidad>0  & direccion==-1 ):   # irA a la izquierda
            x= self.sensorGiroscopio.getLastInfo().getData()['x']
            time.sleep(.300)
         self.actuadorOP.setPitch(self.velocidadCeroGiroOP)
@@ -271,7 +271,7 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         x=xy['latitud']
         y=xy['longitud']
         z=self.getDistancaSuelo()
-        return (x,y,z)
+        return {'x':x,'y':y,'z':z}
 
     # avanza el dron en dirección a al acabeza
     def irAdelante(self, velocidad):
@@ -318,7 +318,7 @@ class ControladorDronMulticoptero(ControladorDronVolador):
         self.pitch_abajo(0,5)
         self.roll_derecha(0,5)
 
-    # estabilizado - acrobatico
+    # estabilizado - acrobatico y tiene 6 modos más
     def setModo(self,modo):
         self.actuadorOP.setModoVuelo(modo)
 
