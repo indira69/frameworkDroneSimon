@@ -16,8 +16,8 @@ class SensorUltrasonido(Sensor):
         # age= datetime.today() guarda la fecha y la hora de la última lectura del sensor
         self.sensorData = SensorDataUltrasonido(driver.getData(), datetime.today())
         self.status = driver.getStatus()
-        self.driver=driver
-        self.alcance=alcance
+        self.driver = driver
+        self.alcance = alcance
 
 
     def getLastInfo(self):

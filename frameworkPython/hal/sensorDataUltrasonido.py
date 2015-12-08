@@ -10,7 +10,6 @@ class SensorDataUltrasonido(SensorData):
         """
         :type driver Driver
         """
-
         #sensorData = {'altura' : 0}
         self.data = data
         self.age = age

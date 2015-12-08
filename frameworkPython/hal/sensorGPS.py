@@ -11,7 +11,7 @@ class SensorGPS(Sensor):
         :type driver Driver
         """
 
-        self.sensorData = SensorDataGPS(driver.getData(),datetime.today())
+        self.sensorData = SensorDataGPS(driver.getData(), datetime.today())
         self.status = driver.getStatus()
         self.driver = driver
 
