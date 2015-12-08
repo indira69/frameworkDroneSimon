@@ -33,7 +33,7 @@ class SensorMagnetometroTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.sensorMagnetometro = SensorMagnetometro(DriverMagnometroMock())
+        self.sensorMagnetometro = SensorMagnetometro(DriverMagnetometroMock())
 
     def test_getLastInfo_NoNone(self):
 
@@ -41,7 +41,7 @@ class SensorMagnetometroTest(unittest.TestCase):
 
     def test_getEstado_NoNone(self):
 
-        self.assertIsNotNone(self.sensorMagnetometro.getEstado())
+        self.assertIsNotNone(self.sensorMagnetometro.getStatus())
 
     def test_getAltura(self):
 

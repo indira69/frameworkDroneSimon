@@ -1,16 +1,18 @@
 from sensorData import SensorData
 from drivers.driver import Driver
 
+__author__ = 'Diego Garcia'
+
 
 class SensorDataBateria(SensorData):
 
-    def __init__(self,driver):
+    def __init__(self, data, age):
         """
         :type driver Driver
         """
-        #sensorData = {'nivel': 0}
-        self.data = driver.getData()
-        self.age = ""
+        #data = {'nivel': 0}
+        self.data = data
+        self.age = age
 
     def getData(self):
         return self.data

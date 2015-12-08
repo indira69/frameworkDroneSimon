@@ -1,38 +1,16 @@
 import unittest
-from drivers.driver import Driver
 from hal.sensorDataUltrasonido import SensorDataUltrasonido
+from datetime import *
 
 
 data = {'altura': 200}
-
-class DriverUltrasonidoMock(Driver):
-
-    def __init__(self):
-
-        self.data = data
-
-    def getData(self):
-
-        return self.data
-
-    def getStatus(self):
-
-        raise  NotImplementedError( "Should have implemented this")
-
-    def forceRead(self):
-
-        raise NotImplementedError( "Should have implemented this" )
-
-    def reset(self):
-
-        raise NotImplementedError( "Should have implemented this" )
 
 
 class SensorDataUltrasonidoTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.dataUltrasonido = SensorDataUltrasonido(DriverUltrasonidoMock())
+        self.dataUltrasonido = SensorDataUltrasonido(data, datetime.today())
 
     def test_getData_NoNone(self):
 
@@ -56,6 +34,6 @@ class SensorDataUltrasonidoTest(unittest.TestCase):
     def test_setAge(self):
 
         dataUltrasonido = self.dataUltrasonido
-        new_age = 'new age'
+        new_age = datetime.today()
         dataUltrasonido.setAge(new_age)
         self.assertEquals(dataUltrasonido.getAge(), new_age)

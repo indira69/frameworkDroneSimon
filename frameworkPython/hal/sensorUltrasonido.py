@@ -13,11 +13,11 @@ class SensorUltrasonido(Sensor):
         """
         :type driver: Driver
         """
-        # age= datetime.today() guarda la fecha y la hora de la última lectura del sensor
+        # age= datetime.today() guarda la fecha y la hora de la ultima lectura del sensor
         self.sensorData = SensorDataUltrasonido(driver.getData(), datetime.today())
         self.status = driver.getStatus()
-        self.driver=driver
-        self.alcance=alcance
+        self.driver = driver
+        self.alcance = alcance
 
 
     def getLastInfo(self):
@@ -26,7 +26,7 @@ class SensorUltrasonido(Sensor):
         self.sensorData.setAge(datetime.today())
         return self.sensorData
 
-    def getEstado(self):
+    def getStatus(self):
         #devuelve el estado del sensor
         return self.status
 
@@ -44,7 +44,7 @@ class SensorUltrasonido(Sensor):
         self.sensorData.setAge(datetime.today())
         return self.sensorData.getData()['altura']
 
-    #devuelve el alcance máximo del ultrasonido si 0 es que esta en el piso
-    # si está en el máximo puede estar mas de  el máximo
+    #devuelve el alcance maximo del ultrasonido si 0 es que esta en el piso
+    # si esta en el maximo puede estar mas de  el maximo
     def getAlcance(self):
         return self.alcance

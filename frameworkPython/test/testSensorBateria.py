@@ -41,7 +41,7 @@ class SensorBateriaTest(unittest.TestCase):
 
     def test_getEstado_NoNone(self):
 
-        self.assertIsNotNone(self.sensorBateria.getEstado())
+        self.assertIsNotNone(self.sensorBateria.getStatus())
 
     def test_getNivel(self):
 

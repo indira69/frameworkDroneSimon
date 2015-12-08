@@ -13,7 +13,7 @@ class SensorGiroscopio(Sensor):
         :type driver: Driver
         """
 
-        self.sensorData = SensorDataGiroscopio(driver, datetime.today())
+        self.sensorData = SensorDataGiroscopio(driver.getData(), datetime.today())
         self.status = driver.getStatus()
         self.driver = driver
 
@@ -23,7 +23,7 @@ class SensorGiroscopio(Sensor):
         self.sensorData.setAge(datetime.today())
         return self.sensorData
 
-    def getEstado(self):
+    def getStatus(self):
         #devuelve el estado del sensor
         return self.status
 

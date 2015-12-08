@@ -3,7 +3,7 @@ from drivers.driver import Driver
 from hal.sensorGPS import SensorGPS
 
 
-data = {'latitud': 543, 'longitud': 345, 'altura': 656}
+data = {'latitud': 543, 'longitud': 345, 'altitud': 656}
 status = 'ok'
 
 class DriverGPSMock(Driver):
@@ -41,7 +41,7 @@ class SensorGPSTest(unittest.TestCase):
 
     def test_getEstado_NoNone(self):
 
-        self.assertIsNotNone(self.sensorGPS.getEstado())
+        self.assertIsNotNone(self.sensorGPS.getStatus())
 
     def test_getCoordenadas_NoNone(self):
 
@@ -50,6 +50,5 @@ class SensorGPSTest(unittest.TestCase):
     def test_getCoordenadas(self):
 
         sensorGPS = self.sensorGPS
-        esperado = (data['latitud'], data['longitud'], data['altura'])
+        esperado = (data['latitud'], data['longitud'], data['altitud'])
         self.assertEquals(sensorGPS.getCoordenadas(), esperado)
-

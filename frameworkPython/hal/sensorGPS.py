@@ -11,7 +11,7 @@ class SensorGPS(Sensor):
         :type driver Driver
         """
 
-        self.sensorData = SensorDataGPS(driver.getData(),datetime.today())
+        self.sensorData = SensorDataGPS(driver.getData(), datetime.today())
         self.status = driver.getStatus()
         self.driver = driver
 
@@ -20,7 +20,7 @@ class SensorGPS(Sensor):
         self.sensorData.setAge(datetime.today())
         return self.sensorData
 
-    def getEstado(self):
+    def getStatus(self):
         return self.driver.getStatus()
 
     def reset(self):

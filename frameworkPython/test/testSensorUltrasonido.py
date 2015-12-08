@@ -4,6 +4,7 @@ from hal.sensorUltrasonido import SensorUltrasonido
 
 
 data = {'altura' : 500}
+alcance = 10
 status = 'ok'
 
 class DriverUltrasonidoMock(Driver):
@@ -33,7 +34,7 @@ class SensorUltrasonidoTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.sensorUltrasonido = SensorUltrasonido(DriverUltrasonidoMock())
+        self.sensorUltrasonido = SensorUltrasonido(DriverUltrasonidoMock(), alcance)
 
     def test_getLastInfo_NoNone(self):
 
@@ -41,10 +42,14 @@ class SensorUltrasonidoTest(unittest.TestCase):
 
     def test_getEstado_NoNone(self):
 
-        self.assertIsNotNone(self.sensorUltrasonido.getEstado())
+        self.assertIsNotNone(self.sensorUltrasonido.getStatus())
 
     def test_getAltura(self):
 
         self.assertEquals(self.sensorUltrasonido.getAltura(), data['altura'])
+
+    def test_getAlacance(self):
+
+        self.assertEquals(self.sensorUltrasonido.getAlcance(), alcance)
 
 
