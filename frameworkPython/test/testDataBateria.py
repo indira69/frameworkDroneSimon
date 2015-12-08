@@ -1,38 +1,15 @@
 import unittest
-from drivers.driver import Driver
 from hal.sensorDataBateria import SensorDataBateria
+from datetime import *
 
 
 data = {'nivel': 40}
-
-class DriverBateriaMock(Driver):
-
-    def __init__(self):
-
-        self.data = data
-
-    def getData(self):
-
-        return self.data
-
-    def getStatus(self):
-
-        raise  NotImplementedError( "Should have implemented this")
-
-    def forceRead(self):
-
-        raise NotImplementedError( "Should have implemented this" )
-
-    def reset(self):
-
-        raise NotImplementedError( "Should have implemented this" )
-
 
 class SensorDataBateriaTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.dataBateria = SensorDataBateria(DriverBateriaMock())
+        self.dataBateria = SensorDataBateria(data, datetime.today())
 
     def test_getData_NoNone(self):
 
@@ -56,6 +33,6 @@ class SensorDataBateriaTest(unittest.TestCase):
     def test_setAge(self):
 
         dataBateria = self.dataBateria
-        new_age = 'new age'
+        new_age = datetime.today()
         dataBateria.setAge(new_age)
         self.assertEquals(dataBateria.getAge(), new_age)

@@ -11,7 +11,7 @@ class SensorBateria(Sensor):
         """
         :type driver Driver
         """
-        self.sensorData = SensorDataBateria(driver, datetime.today())
+        self.sensorData = SensorDataBateria(driver.getData(), datetime.today())
         self.status = driver.getStatus()
         self.driver = driver
 
@@ -20,7 +20,7 @@ class SensorBateria(Sensor):
         self.actualizarData()
         return self.sensorData
 
-    def getEstado(self):
+    def getStatus(self):
 
         return self.status
 

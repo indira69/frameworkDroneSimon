@@ -20,7 +20,7 @@ class SensorGPS(Sensor):
         self.sensorData.setAge(datetime.today())
         return self.sensorData
 
-    def getEstado(self):
+    def getStatus(self):
         return self.driver.getStatus()
 
     def reset(self):

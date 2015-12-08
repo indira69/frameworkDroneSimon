@@ -1,38 +1,16 @@
 import unittest
-from drivers.driver import Driver
 from hal.sensorDataGPS import SensorDataGPS
+from datetime import *
 
 
-data = {'latitud': 543, 'longitud': 345, 'altura': 656}
-
-class DriverGPSMock(Driver):
-
-    def __init__(self):
-
-        self.data = data
-
-    def getData(self):
-
-        return self.data
-
-    def getStatus(self):
-
-        raise  NotImplementedError( "Should have implemented this")
-
-    def forceRead(self):
-
-        raise NotImplementedError( "Should have implemented this" )
-
-    def reset(self):
-
-        raise NotImplementedError( "Should have implemented this" )
+data = {'latitud': 543, 'longitud': 345, 'altitud': 656}
 
 
 class SensorDataGPSTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.dataGPS = SensorDataGPS(DriverGPSMock())
+        self.dataGPS = SensorDataGPS(data, datetime.today())
 
     def test_getData_NoNone(self):
 
@@ -46,9 +24,9 @@ class SensorDataGPSTest(unittest.TestCase):
 
         self.assertEquals(self.dataGPS.getData()['longitud'], data['longitud'])
 
-    def test_getData_altura(self):
+    def test_getData_altitud(self):
 
-        self.assertEquals(self.dataGPS.getData()['altura'], data['altura'])
+        self.assertEquals(self.dataGPS.getData()['altitud'], data['altitud'])
 
     def test_getData(self):
 
@@ -57,7 +35,7 @@ class SensorDataGPSTest(unittest.TestCase):
     def test_setData(self):
 
         dataGPS = self.dataGPS
-        new_data = {'latitud': 234, 'longitud': 178, 'altura': 756}
+        new_data = {'latitud': 234, 'longitud': 178, 'altitud': 756}
         dataGPS.setData(new_data)
         self.assertEquals(dataGPS.getData(), new_data)
 
@@ -69,6 +47,6 @@ class SensorDataGPSTest(unittest.TestCase):
     def test_setAge(self):
 
         dataGPS = self.dataGPS
-        new_age = 'new age'
+        new_age = datetime.today()
         dataGPS.setAge(new_age)
         self.assertEquals(dataGPS.getAge(), new_age)

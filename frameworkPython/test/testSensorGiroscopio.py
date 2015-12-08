@@ -3,7 +3,7 @@ from drivers.driver import Driver
 from hal.sensorGiroscopio import SensorGiroscopio
 
 
-data = {'x': 1, 'y': 6, 'z': 3, 'angulo' : 90}
+data = {'x': 1, 'y': 6, 'z': 3, 'inclinacion_x' : 90, 'inclinacion_y' : 180}
 status = 'ok'
 
 class DriverGiroscopioMock(Driver):
@@ -41,7 +41,7 @@ class SensorGiroscopioTest(unittest.TestCase):
 
     def test_getEstado_NoNone(self):
 
-        self.assertIsNotNone(self.sensorGiroscopio.getEstado())
+        self.assertIsNotNone(self.sensorGiroscopio.getStatus())
 
     def test_verPosicion_NoNone(self):
 
@@ -60,7 +60,7 @@ class SensorGiroscopioTest(unittest.TestCase):
     def test_verInclinacion(self):
 
         sensorGiroscopio = self.sensorGiroscopio
-        esperado = data['angulo']
+        esperado = (data['inclinacion_x'], data['inclinacion_y'])
         self.assertEquals(sensorGiroscopio.verInclinacion(), esperado)
 
 

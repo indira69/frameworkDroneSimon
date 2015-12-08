@@ -1,38 +1,16 @@
 import unittest
-from drivers.driver import Driver
+from datetime import *
 from hal.sensorDataGiroscopio import SensorDataGiroscopio
 
 
 data = {'x': 1, 'y': 6, 'z': 3, 'angulo' : 90}
-
-class DriverGiroscoioMock(Driver):
-
-    def __init__(self):
-
-        self.data = data
-
-    def getData(self):
-
-        return self.data
-
-    def getStatus(self):
-
-        raise  NotImplementedError( "Should have implemented this")
-
-    def forceRead(self):
-
-        raise NotImplementedError( "Should have implemented this" )
-
-    def reset(self):
-
-        raise NotImplementedError( "Should have implemented this" )
 
 
 class SensorDataGiroscopioTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.dataGiroscopio = SensorDataGiroscopio(DriverGiroscoioMock())
+        self.dataGiroscopio = SensorDataGiroscopio(data, datetime.today())
 
     def test_getData_NoNone(self):
 
@@ -72,6 +50,6 @@ class SensorDataGiroscopioTest(unittest.TestCase):
     def test_setAge(self):
 
         dataGiroscopio = self.dataGiroscopio
-        new_age = 'new age'
+        new_age = datetime.today()
         dataGiroscopio.setAge(new_age)
         self.assertEquals(dataGiroscopio.getAge(), new_age)
