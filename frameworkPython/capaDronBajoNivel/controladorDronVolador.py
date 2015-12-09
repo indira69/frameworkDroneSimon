@@ -35,7 +35,7 @@ class ControladorDronVolador(ControladorDron):
     def down(self, distancia, velocidad):
         raise NotImplementedError( "Should have implemented this" )
 
-    # cabeceo - elevación de la cabeza
+    # cabeceo - elevacion de la cabeza
     @abc.abstractmethod
     def pitch_arriba(self, grados, velocidad):
         raise NotImplementedError( "Should have implemented this" )
@@ -60,12 +60,12 @@ class ControladorDronVolador(ControladorDron):
     def getDistancaSuelo(self):
         raise NotImplementedError( "Should have implemented this" )
 
-    # dirige el dron hacia la dirección que apunta la cabeza
+    # dirige el dron hacia la direccion que apunta la cabeza
     @abc.abstractmethod
     def irAdelante(self):
         raise NotImplementedError( "Should have implemented this" )
 
-    # obtiene los ángulos x, y,  z del giroscopio, que son los angulos de inclinación de la cabeza
+    # obtiene los angulos x, y,  z del giroscopio, que son los angulos de inclinacion de la cabeza
     @abc.abstractmethod
     def getAngulosCabeza(self):
         raise NotImplementedError( "Should have implemented this" )
